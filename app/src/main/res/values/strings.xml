@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">VRC Scouting</string>
+    <string name="action_loadCSV">Load CSV</string>
+</resources>
