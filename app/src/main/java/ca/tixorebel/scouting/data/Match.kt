@@ -11,7 +11,7 @@ class Match {
     var blue3: Team? = null
     var redSitting: Team? = null
     var blueSitting: Team? = null
-    var number: Long = -1
+    var number: Double = -1.0
     var type: String = ""
     var redScore: Long = -1
     var blueScore: Long = -1

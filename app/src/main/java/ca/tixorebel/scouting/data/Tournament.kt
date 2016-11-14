@@ -3,7 +3,7 @@ package ca.tixorebel.scouting.data
 import java.util.*
 
 class Tournament() {
-    var matches: HashMap<Long, Match> = HashMap()
+    var matches: Map<Double, Match> = HashMap()
         get() { return field }
         set(value) { field = value; shouldPopulateTeams = true }
 
@@ -25,4 +25,6 @@ class Tournament() {
             return field
         }
     var shouldPopulateTeams = true
+
+    var name = ""
 }

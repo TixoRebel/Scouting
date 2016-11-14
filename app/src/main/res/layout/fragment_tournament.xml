@@ -4,9 +4,6 @@
              android:layout_height="match_parent"
              tools:context="ca.tixorebel.scouting.TournamentFragment">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Tournament Fragment"/>
+    <ListView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/tournament_list" />
 
 </FrameLayout>
