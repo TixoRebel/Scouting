@@ -7,8 +7,9 @@ import java.util.*
 
 val tournaments = ArrayList<Tournament>(1)
 var currentTournament: Tournament? = null
+val matchTypes = arrayOf("Qualifier", "QF", "SF", "Final")
 
-fun loadCSV(input: InputStream): Map<Double, Match>? {
+fun loadCSV(input: InputStream): LinkedList<Match>? {
     val r = input.bufferedReader()
     val layout = r.readCSVLine() ?: return null
 
@@ -16,7 +17,7 @@ fun loadCSV(input: InputStream): Map<Double, Match>? {
     for (c in layout) {
         when (c.trim('"')) {
             "Match" -> { generator.add { s, m ->
-                arrayOf("Qualifier #", "QF #", "SF #", "Final #").forEach { i -> if (s.startsWith(i)) { extractNumber(i, s, m); return@forEach } } } }
+                matchTypes.forEach { i -> if (s.startsWith(i)) { extractNumber(i + " #", s, m); return@forEach } } } }
 
             "Start Time" -> { generator.add { s, m ->
                 if (s != "N/A") { m.startTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(s) } } }
@@ -39,7 +40,7 @@ fun loadCSV(input: InputStream): Map<Double, Match>? {
         }
     }
 
-    val matches: HashMap<Double, Match> = HashMap()
+    val matches = LinkedList<Match>()
     while (true) {
         val line = r.readCSVLine() ?: break
         if (line.size != generator.size) continue
@@ -47,7 +48,7 @@ fun loadCSV(input: InputStream): Map<Double, Match>? {
         val match = Match()
         for (c in line) i.next()(c.trim('"'), match)
         if (match.number == -1.0) continue
-        matches[match.number] = match
+        matches.add(match)
     }
 
     return if (matches.size > 0) matches else null
