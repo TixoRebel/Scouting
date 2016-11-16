@@ -20,6 +20,7 @@ class TournamentsFragment : Fragment() {
 
         tournament_list.setOnItemClickListener { parent, view, position, id ->
             currentTournament = tournament_list.getItemAtPosition(position) as Tournament
+            if (mainActivity != null) mainActivity!!.navigateTo(1)
         }
     }
 
