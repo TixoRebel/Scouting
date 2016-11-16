@@ -1,7 +1,11 @@
 package ca.tixorebel.scouting.data.robotevents
 
+import ca.tixorebel.scouting.data.Match
+import ca.tixorebel.scouting.data.Team
 import ca.tixorebel.scouting.data.Tournament
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.net.URL
+import java.util.*
 import java.util.function.BiConsumer
 import java.util.function.Consumer
 
@@ -18,6 +22,16 @@ object API {
     }.start()
 
     fun getTournamentdata(tournament : TournamentMetadata, done : BiConsumer<Exception, Tournament>) = Thread {
-        val result : Tournament = Tournament()
+        val result = Tournament()
+        result.name = tournament.name;
+        val mapper = jacksonObjectMapper()
+        val html = URL("https://www.robotevents.com/robot-competitions/vex-robotics-competition/${tournament.eventCode}.html").readText()
+        val results = mapper.readValue(Regex("var results = (.*?);").find(html)!!.groupValues[0], TournamentResults::class.java)
+        result.teams = HashMap(results.rankings.associate { Pair(it.teamnum, Team(it.teamnum, it.teamname)) })
+        result.matches = results.match_results.map {
+            val match = Match()
+            match
+        }
+        done.accept(null, result)
     }.start()
 }
