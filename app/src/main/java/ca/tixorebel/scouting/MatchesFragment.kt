@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class TeamFragment : Fragment() {
+class MatchesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_team, container, false)
+        return inflater?.inflate(R.layout.fragment_matches, container, false)
     }
 
-    override fun toString(): String { return "Teams" }
+    override fun toString(): String { return "Matches" }
 }

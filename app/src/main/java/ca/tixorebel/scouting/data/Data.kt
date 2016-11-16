@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 val tournaments = ArrayList<Tournament>(1)
-val currentTournament = -1
+var currentTournament: Tournament? = null
 
 fun loadCSV(input: InputStream): Map<Double, Match>? {
     val r = input.bufferedReader()

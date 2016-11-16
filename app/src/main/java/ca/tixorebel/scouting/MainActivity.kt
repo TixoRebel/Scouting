@@ -13,25 +13,23 @@ import android.widget.Toast
 import ca.tixorebel.scouting.data.Tournament
 import ca.tixorebel.scouting.data.loadCSV
 import ca.tixorebel.scouting.data.tournaments
-import android.provider.MediaStore.Images
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import ca.tixorebel.scouting.data.Match
-import java.io.FileDescriptor
-import java.io.InputStream
-
 
 class MainActivity : AppCompatActivity() {
-    private var fragments: Array<Fragment> = arrayOf(TournamentFragment(), TeamFragment(), MatchFragment())
+    private var fragments: Array<Fragment> = arrayOf(TournamentsFragment(), MatchesFragment(), TeamsFragment())
+    val LOAD_CSV_ID = 278
+
+    fun navigateTo(id: Int) = fragmentManager.beginTransaction().replace(R.id.content_frame, fragments[id]).commit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragments[0]).commit()
+        navigateTo(0)
 
         left_drawer.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fragments.map(Fragment::toString))
-        left_drawer.onItemClickListener = AdapterView.OnItemClickListener() {  parent, view, position, id ->
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragments[position]).commit()
+        left_drawer.onItemClickListener = AdapterView.OnItemClickListener {  parent, view, position, id ->
+            navigateTo(position)
             drawer_layout.closeDrawer(left_drawer)
         }
     }
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 intent.addCategory(Intent.CATEGORY_OPENABLE)
 
                 try {
-                    startActivityForResult(Intent.createChooser(intent, "Select a File to Parse"), 278)
+                    startActivityForResult(Intent.createChooser(intent, "Select a File to Parse"), LOAD_CSV_ID)
                 }
                 catch (ex: android.content.ActivityNotFoundException) {
                     Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show()
@@ -63,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            278 -> if (resultCode == Activity.RESULT_OK && data?.data != null) {
+            LOAD_CSV_ID -> if (resultCode == Activity.RESULT_OK && data?.data != null) {
                 val uri = data!!.data
                 val matches: Map<Double, Match>
                 try { matches = loadCSV(contentResolver.openInputStream(uri)) ?: return }
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 tournament.name = returnCursor.getString(nameIndex)
                 returnCursor.close()
                 tournaments.add(tournament)
-                (fragments[0] as TournamentFragment).tournamentsAdapter?.notifyDataSetChanged()
+                (fragments[0] as TournamentsFragment).tournamentsAdapter?.notifyDataSetChanged()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

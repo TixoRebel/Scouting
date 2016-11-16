@@ -2,11 +2,11 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="ca.tixorebel.scouting.TeamFragment">
+             tools:context="ca.tixorebel.scouting.TeamsFragment">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Match Fragment"/>
+            android:text="Team Fragment"/>
 
 </FrameLayout>

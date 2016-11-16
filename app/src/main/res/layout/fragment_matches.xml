@@ -2,8 +2,11 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="ca.tixorebel.scouting.TournamentFragment">
+             tools:context="ca.tixorebel.scouting.TeamsFragment">
 
-    <ListView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/tournament_list" />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Match Fragment"/>
 
 </FrameLayout>
