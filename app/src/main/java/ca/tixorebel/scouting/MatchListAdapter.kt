@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import ca.tixorebel.scouting.data.Match
-import kotlinx.android.synthetic.main.tournament_list_layout.view.*
+import kotlinx.android.synthetic.main.match_list_layout.view.*
 
 class MatchListAdapter : ArrayAdapter<Match> {
     constructor(context: Context, textViewResourceId: Int) : super(context, textViewResourceId) { resource = textViewResourceId }
@@ -21,7 +21,11 @@ class MatchListAdapter : ArrayAdapter<Match> {
         val v = convertView ?: vi.inflate(resource, null)
 
         if (p != null) {
-            v.main_text.text = p.number.toString()
+            if ((p.number % 1.0) == 0.0)
+                v.number_text.text = p.number.toInt().toString()
+            else
+                v.number_text.text = p.number.toString().replace('.', '-')
+            v.type_text.text = p.type
         }
 
         return v

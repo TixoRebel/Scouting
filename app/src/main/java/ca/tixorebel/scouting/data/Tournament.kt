@@ -3,14 +3,14 @@ package ca.tixorebel.scouting.data
 import java.util.*
 
 class Tournament() {
-    var matches: Map<Double, Match> = HashMap()
+    var matches: List<Match> = LinkedList()
         get() { return field }
         set(value) { field = value; shouldPopulateTeams = true }
 
     val teams: HashMap<String, Team> = HashMap()
         get() {
             if (shouldPopulateTeams) {
-                for (m in matches.values) {
+                for (m in matches) {
                     if (m.red1 != null) field[m.red1!!.id] = m.red1!!
                     if (m.red2 != null) field[m.red2!!.id] = m.red2!!
                     if (m.blue1 != null) field[m.blue1!!.id] = m.blue1!!

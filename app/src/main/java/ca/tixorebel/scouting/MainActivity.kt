@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             LOAD_CSV_ID -> if (resultCode == Activity.RESULT_OK && data?.data != null) {
                 val uri = data!!.data
-                val matches: Map<Double, Match>
+                val matches: List<Match>
                 try { matches = loadCSV(contentResolver.openInputStream(uri)) ?: return }
                 catch (e: Exception) {
                     Toast.makeText(this, "Failed to parse csv", Toast.LENGTH_SHORT).show()
