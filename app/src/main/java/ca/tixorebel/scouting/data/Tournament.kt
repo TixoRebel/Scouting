@@ -1,6 +1,7 @@
 package ca.tixorebel.scouting.data
 
 import ca.tixorebel.scouting.data.robotevents.TournamentMetadata
+import ca.tixorebel.scouting.data.robotevents.TournamentResults
 import java.util.*
 
 class Tournament() {
@@ -11,4 +12,6 @@ class Tournament() {
     var name = ""
 
     var rawMetadata: TournamentMetadata? = null
+
+    var rawResultsData: TournamentResults? = null
 }

@@ -27,9 +27,8 @@ object API {
         try {
             result.rawMetadata = tournament
             result.name = tournament.name
-            val mapper = jacksonObjectMapper()
-            val html = URL("https://www.robotevents.com/robot-competitions/vex-robotics-competition/${tournament.eventCode}.html").readText()
-            val results = mapper.readValue(Regex("var results = (.*?);").find(html)!!.groupValues[0], TournamentResults::class.java)
+            val results = jacksonObjectMapper().readValue(Regex("var results = (.*?);").find(URL("https://www.robotevents.com/robot-competitions/vex-robotics-competition/${tournament.eventCode}.html").readText())!!.groupValues[0], TournamentResults::class.java)
+            result.rawResultsData = results
             val teams = results.rankings.associate { Pair(it.teamnum, Team(it.teamnum, it.teamname)) }
             val matchTypes = mapOf(Pair(2, "Qualifier"), Pair(3, "QF"), Pair(4, "SF"), Pair(5, "Final"))
             result.matches = results.match_results.map {
