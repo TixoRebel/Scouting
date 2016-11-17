@@ -1,5 +1,6 @@
 package ca.tixorebel.scouting.data
 
+import ca.tixorebel.scouting.data.robotevents.MatchResult
 import java.util.*
 
 class Match {
@@ -13,10 +14,11 @@ class Match {
     var blueSitting: Team? = null
     var number: Double = -1.0
     var type: String = ""
-    var redScore: Long = -1
-    var blueScore: Long = -1
+    var redScore: Int = -1
+    var blueScore: Int = -1
     var startTime: Date? = null
     var winner: Winner? = null
+    var rawData: MatchResult? = null
 
     enum class Winner { blue, red, tie }
 }
