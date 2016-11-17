@@ -9,18 +9,24 @@ import android.view.MenuItem
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.widget.Toast
-import ca.tixorebel.scouting.data.Tournament
-import ca.tixorebel.scouting.data.loadCSV
-import ca.tixorebel.scouting.data.tournaments
 import android.provider.OpenableColumns
-import ca.tixorebel.scouting.data.Match
+import ca.tixorebel.scouting.data.*
+
+var mainActivity: MainActivity? = null
 
 class MainActivity : AppCompatActivity() {
+    init {
+        mainActivity = this
+    }
+
     private var fragments: Array<Fragment> = arrayOf(TournamentsFragment(), MatchesFragment(), TeamsFragment())
     val LOAD_CSV_ID = 278
 
-    fun navigateTo(id: Int) = fragmentManager.beginTransaction().replace(R.id.content_frame, fragments[id]).commit()
+    fun navigateTo(id: Int) {
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragments[id]).commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                 tournament.name = returnCursor.getString(nameIndex)
                 returnCursor.close()
                 tournaments.add(tournament)
+                currentTournament = tournament
                 (fragments[0] as TournamentsFragment).tournamentsAdapter?.notifyDataSetChanged()
             }
         }

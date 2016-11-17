@@ -25,8 +25,7 @@
                 android:background="@android:color/white"
                 android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
-                android:listSelector="@color/colorListSelected" />
+                android:dividerHeight="0dp"/>
 
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>
